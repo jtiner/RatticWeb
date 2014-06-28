@@ -97,7 +97,7 @@ class CredResource(ModelResource):
         resource_name = 'cred'
         excludes = ['username', 'is_deleted']
         authentication = MultiAuthentication(SessionAuthentication(), MultiApiKeyAuthentication())
-        authorization = CredAuthorization()
+        authorization = Authorization()
         filtering = {
             'title': ('exact', 'contains', 'icontains'),
             'url': ('exact', 'startswith', ),
