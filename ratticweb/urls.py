@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from tastypie.api import Api
-from cred.api import CredResource, TagResource
+from cred.api.resources import CredResource, TagResource
 from staff.api import GroupResource
 from django.conf import settings
 
