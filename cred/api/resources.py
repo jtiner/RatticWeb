@@ -25,7 +25,7 @@ class CredAuthorization(Authorization):
         raise Unauthorized("Not yet implemented.")
 
     def create_detail(self, object_list, bundle):
-        raise Unauthorized("Not yet implemented.")
+        return True
 
     def update_list(self, object_list, bundle):
         raise Unauthorized("Not yet implemented.")
@@ -91,13 +91,18 @@ class CredResource(ModelResource):
 
         return bundle
 
+    def hydrate(self, bundle):
+        bundle.obj.group_id = bundle.data['group_id']
+        bundle.obj.username = bundle.data['username']
+        return bundle
+
     class Meta:
         queryset = Cred.objects.filter(is_deleted=False, latest=None)
         always_return_data = True
         resource_name = 'cred'
         excludes = ['username', 'is_deleted']
         authentication = MultiAuthentication(SessionAuthentication(), MultiApiKeyAuthentication())
-        authorization = Authorization()
+        authorization = CredAuthorization()
         filtering = {
             'title': ('exact', 'contains', 'icontains'),
             'url': ('exact', 'startswith', ),
